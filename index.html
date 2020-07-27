@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pin Generator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="pin-generator half-width">
+                    <input class="form-control" type="text" id="randomCode">
+                    <button class="generate-btn" onclick="CodeGenerate()">Generate Pin</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-section half-width">
+                    <input id="Display" class="form-control" type="text">
+                    <div class="numbers">
+                        <div class="calc-body">
+                            <div class="calc-button-row">
+                              <div class="button" onclick="Number(7)">7</div>
+                              <div class="button" onclick="Number(8)">8</div>
+                              <div class="button" onclick="Number(9)">9</div>
+                            </div>
+                            <div class="calc-button-row">
+                              <div class="button" onclick="Number(4)">4</div>
+                              <div class="button" onclick="Number(5)">5</div>
+                              <div class="button" onclick="Number(6)">6</div>
+                            </div>
+                            <div class="calc-button-row">
+                              <div class="button" onclick="Number(1)">1</div>
+                              <div class="button" onclick="Number(2)">2</div>
+                              <div class="button" onclick="Number(3)">3</div>
+                            </div>
+                            <div class="calc-button-row">
+                                <div class="button"onclick="back()"><</div>
+                                <div class="button" onclick="Number(0)">0</div>
+                                <div class="button" onclick="c()">C</div>
+                            </div>
+                            <div>
+                                <button type="submit" class="submit-btn" onclick="result()" >Submit</button>
+                                <p class="action-left">3 try left</p>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="notify-section">
+            <!-- add reject class on fist paragraph -->
+            <p class="notify reject" id="code-wrong">❌ Pin Didn't Match, Please try again </p> 
+            <p class="notify" id="code-match">✅ Pin Matched... Secret door is opening for you</p>
+        </div>
+    </div>
+
+    <script>
+
+        //pin generate part
+        
+        function CodeGenerate(){
+            let codeInput = Math.random(100);
+            let codeInputNumber = codeInput.toFixed(4);
+            let inputCode = codeInputNumber.substring(50, 2);
+            document.getElementById('randomCode').value = inputCode;
+        }
+        
+        //pin input part
+        
+        function Number(Num){
+            document.getElementById('Display').value = document.getElementById('Display').value + Num;
+        }
+        function back(){
+            let clearBack = document.getElementById('Display').value;
+            document.getElementById('Display').value = clearBack.substring(0, clearBack.length - 1);
+        }
+        function c(){
+            document.getElementById("Display").value =""
+        }
+        
+        //submit button, code match, un-match part
+        
+        function result(){
+            let verify = document.getElementById('randomCode').value;
+            let inputPin = document.getElementById('Display').value;
+            if(verify == inputPin){
+                document.getElementById('code-match').style.display = 'block';
+                document.getElementById('code-wrong').style.display = 'none'
+            }
+            else{
+                document.getElementById('code-match').style.display = 'none';
+                document.getElementById('code-wrong').style.display = 'block';
+            }
+        
+        }
+        
+    </script>
+</body>
+</html>
